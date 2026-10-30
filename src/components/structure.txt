@@ -1,0 +1,85 @@
+================================================================================
+AUSTIN PORTFOLIO - CODE ARCHITECTURE, LANGUAGES & DEPLOYMENT GUIDE
+================================================================================
+
+1. CODE ARCHITECTURE
+--------------------------------------------------------------------------------
+This project is built using a modern, component-driven Web Architecture powered 
+by Next.js (App Router) and configured for Static Site Generation (SSG).
+
+Directory Structure & Layering:
+• src/app/ (Application Core & Routing)
+  - layout.tsx      : Root HTML document wrapper, metadata, global fonts & styling setup.
+  - page.tsx        : Main single-page application (SPA) entry point stitching all key section components.
+  - globals.css     : Base design system tokens, Tailwind CSS v4 imports, global reset, & custom utility styles.
+  - favicon.ico     : Website brand icon.
+
+• src/components/ (Modular Component Library)
+  - Navbar.tsx               : Sticky top navigation header with active section tracking & smooth scrolling.
+  - Hero.tsx                 : Dynamic introductory hero section with CTA buttons & profile highlights.
+  - ArchitectureShowcase.tsx  : Interactive system architecture visualizer & tech stack breakdown.
+  - FeaturedProjects.tsx     : Project showcase cards, filters, and detailed tech stack badges.
+  - ExperienceTimeline.tsx   : Interactive career journey timeline & milestone display.
+  - SkillsMatrix.tsx         : Categorized technical skill matrix with proficiency indicators.
+  - InteractiveTerminal.tsx  : CLI-style emulator allowing visitors to run interactive commands.
+  - ContactSection.tsx       : Contact form UI, social links, and communication channel details.
+  - Footer.tsx               : Bottom footer with navigation shortcuts, credits, and copyright.
+  - Icons.tsx                : SVG icon component dictionary for consistent UI icons.
+  - structure.txt            : Architecture and deployment documentation file.
+
+
+2. LANGUAGES & FRAMEWORKS USED
+--------------------------------------------------------------------------------
+• TypeScript (.ts, .tsx)
+  - Primary language for application logic, type safety, component interfaces, and state management.
+
+• HTML5 / JSX
+  - Semantic component templates rendered via React 19.
+
+• CSS3 & Tailwind CSS v4
+  - Modern styling system utilizing utility-first CSS, custom variables, responsive flex/grid layouts, 
+    and dark-mode aesthetic design patterns.
+
+• JavaScript (Node.js ecosystem)
+  - Tooling, configuration modules, and ESLint integration (.mjs / .json).
+
+Key Dependencies & Libraries:
+- React 19 & Next.js 16 (App Router Framework)
+- Lucide React (Icon System)
+- Tailwind CSS v4 & PostCSS (Styling engine)
+
+
+3. SUITABLE METHODS TO DEPLOY
+--------------------------------------------------------------------------------
+Because `next.config.ts` is configured with `output: "export"`, the project builds 
+into a 100% static asset bundle (`out/` folder) requiring no Node.js backend server.
+
+METHOD 1: GitHub Pages (Recommended for username.github.io repositories)
+  Since this repository is titled `Austin.github.io`, GitHub Pages is the most 
+  natural and native host.
+
+  Workflow A: GitHub Actions (Automated CI/CD - Best Practice)
+  1. Go to GitHub Repository Settings -> Pages.
+  2. Under "Build and deployment", set Source to "GitHub Actions".
+  3. Create `.github/workflows/deploy.yml` with Next.js static deployment action:
+     - Step 1: Checkout repository
+     - Step 2: Setup Node.js & dependencies (`npm ci`)
+     - Step 3: Run static build (`npm run build`)
+     - Step 4: Deploy `out/` directory using `actions/deploy-pages@v4`
+  4. Every `git push` to `main` will automatically build & update the live site.
+
+  Workflow B: Manual / `gh-pages` Branch
+  1. Run `npm run build` locally to generate the static files in the `out/` folder.
+  2. Push the contents of the `out/` directory to the `main` or `gh-pages` branch.
+
+METHOD 2: Vercel (Easiest Cloud Deployment)
+  1. Connect your GitHub account to Vercel (vercel.com).
+  2. Import the `Austin.github.io` repository.
+  3. Vercel automatically detects Next.js, executes `npm run build`, and deploys 
+     instantly to a global CDN with free SSL certificates.
+
+METHOD 3: Cloudflare Pages / Netlify
+  1. Create a project on Cloudflare Pages or Netlify linked to the repository.
+  2. Set Build Command: `npm run build`
+  3. Set Build Output Directory: `out`
+================================================================================
